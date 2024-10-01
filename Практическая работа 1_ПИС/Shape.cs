@@ -6,46 +6,71 @@ using System.Threading.Tasks;
 
 namespace Практическая_работа_1_ПИС
 {
-    internal class Shape
+    public abstract class Shape
     {
         public double X { get; set; }
         public double Y { get; set; }
         public string Color { get; set; }
-        public override string ToString()
+        public abstract override string ToString();
+        protected static double ParseCoordinate(string coordinate)
         {
-            return $"X: {X}, Y: {Y}, Color: {Color}";
-        }
-
-        public static Shape ParseProperties(string description)
-        {
-            string[] parts = description.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-
-            if (parts.Length != 3)
-            {
-                throw new ArgumentException("Неверный формат описания");
-            }
-
-            if (!double.TryParse(parts[0], out double x) || !double.TryParse(parts[1], out double y))
+            if (!double.TryParse(coordinate, out double result))
             {
                 throw new ArgumentException("Неверный формат координат");
             }
+            return result;
+        }
+        protected static string ParseColor(string color)
+        {
+            string[] validColors = { "green", "blue", "red" };
+            string colorWithoutQuotes = color.Trim('"');
 
-            string color = parts[2];
-
-            if (color.StartsWith("\"") && color.EndsWith("\""))
+            if (!validColors.Contains(colorWithoutQuotes))
             {
-                color = color.Trim('"');
-                if (color != "red" && color != "green" && color != "blue")
-                {
-                    throw new ArgumentException("Неверный формат цвета");
-                }
-            }
-            else
-            {
-                throw new ArgumentException("Цвет должен быть заключен в кавычки");
+                throw new ArgumentException("Недопустимый цвет");
             }
 
-            return new Shape { X = x, Y = y, Color = color };
+            return colorWithoutQuotes;
+        }
+        public static Shape CreateShape(string description)
+        {
+            string[] parts = description.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            string type = parts[0];
+
+            Shape shape;
+            switch (type)
+            {
+                case "Point":
+                    shape = new Point
+                    {
+                        X = Shape.ParseCoordinate(parts[1]),
+                        Y = Shape.ParseCoordinate(parts[2]),
+                        Color = Shape.ParseColor(parts[3])
+                    };
+                    break;
+                case "Circle":
+                    shape = new Circle
+                    {
+                        X = Shape.ParseCoordinate(parts[1]),
+                        Y = Shape.ParseCoordinate(parts[2]),
+                        Color = Shape.ParseColor(parts[3]),
+                        Radius = Shape.ParseCoordinate(parts[4])
+                    };
+                    break;
+                case "Square":
+                    shape = new Square
+                    {
+                        X = Shape.ParseCoordinate(parts[1]),
+                        Y = Shape.ParseCoordinate(parts[2]),
+                        Color = Shape.ParseColor(parts[3]),
+                        SideLength = Shape.ParseCoordinate(parts[4])
+                    };
+                    break;
+                default:
+                    throw new ArgumentException($"Неизвестный тип объекта: {type}");
+            }
+
+            return shape;
         }
     }
 }

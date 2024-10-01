@@ -11,7 +11,7 @@ namespace Практическая_работа_1_ПИС
         public double SideLength { get; set; }
         public override string ToString()
         {
-            return $"X: {X}, Y: {Y}, SideLength: {SideLength}, Color: {Color}";
+            return $"Square: X: {X}, Y: {Y}, SideLength: {SideLength}, Color: {Color}";
         }
     }
 }

@@ -15,10 +15,34 @@ namespace Практическая_работа_1_ПИС
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Введите строку с описанием свойств двумерной точки:");
-            string input = "5,5 6,6 \"green\"";
-            Point point = Point.ParseProperties(input);
-            Console.WriteLine(point);
+            string filePath = "shapes.txt";
+            List<Shape> shapes = ReadShapesFromFile(filePath);
+
+            foreach (var shape in shapes)
+            {
+                Console.WriteLine(shape);
+            }
+        }
+
+        static List<Shape> ReadShapesFromFile(string filePath)
+        {
+            List<Shape> shapes = new List<Shape>();
+
+            try
+            {
+                string[] lines = File.ReadAllLines(filePath);
+                foreach (string line in lines)
+                {
+                    Shape shape = Shape.CreateShape(line);
+                    shapes.Add(shape);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Ошибка при чтении файла: {ex.Message}");
+            }
+
+            return shapes;
         }
     }
 }

@@ -12,7 +12,7 @@ namespace Практическая_работа_1_ПИС
 
         public override string ToString()
         {
-            return $"X: {X}, Y: {Y}, Radius: {Radius}, Color: {Color}";
+            return $"Circle: X: {X}, Y: {Y}, Radius: {Radius}, Color: {Color}";
         }
 
     }

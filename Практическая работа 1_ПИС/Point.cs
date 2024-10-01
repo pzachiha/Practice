@@ -10,7 +10,7 @@ namespace Практическая_работа_1_ПИС
     {
         public override string ToString()
         {
-            return $"X: {X}, Y: {Y}, Color: {Color}";
+            return $"Point: X: {X}, Y: {Y}, Color: {Color}";
         }
     }
 }
