@@ -9,6 +9,11 @@ namespace Практическая_работа_1_ПИС
     internal class Square:Shape
     {
         public double SideLength { get; set; }
+        public Square SetSideLength(double sideLength)
+        {
+            SideLength = sideLength;
+            return this;
+        }
         public override string ToString()
         {
             return $"Square: X: {X}, Y: {Y}, SideLength: {SideLength}, Color: {Color}";

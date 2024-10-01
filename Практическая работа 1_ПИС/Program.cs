@@ -27,22 +27,25 @@ namespace Практическая_работа_1_ПИС
         static List<Shape> ReadShapesFromFile(string filePath)
         {
             List<Shape> shapes = new List<Shape>();
-
             try
             {
                 string[] lines = File.ReadAllLines(filePath);
-                foreach (string line in lines)
-                {
-                    Shape shape = Shape.CreateShape(line);
-                    shapes.Add(shape);
-                }
+                PopulateShapes(shapes, lines);
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Ошибка при чтении файла: {ex.Message}");
             }
-
             return shapes;
+        }
+
+        private static void PopulateShapes(List<Shape> shapes, string[] lines)
+        {
+            foreach (string line in lines)
+            {
+                Shape shape = Shape.CreateShape(line);
+                shapes.Add(shape);
+            }
         }
     }
 }

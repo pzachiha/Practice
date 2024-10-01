@@ -12,13 +12,9 @@ namespace Практическая_работа_1_ПИС
         public double Y { get; set; }
         public string Color { get; set; }
         public abstract override string ToString();
-        protected static double ParseCoordinate(string coordinate)
+        protected static double ParseDouble(string coordinate)
         {
-            if (!double.TryParse(coordinate, out double result))
-            {
-                throw new ArgumentException("Неверный формат координат");
-            }
-            return result;
+            return double.Parse(coordinate);
         }
         protected static string ParseColor(string color)
         {
@@ -32,45 +28,26 @@ namespace Практическая_работа_1_ПИС
 
             return colorWithoutQuotes;
         }
+        public static T CreateShapeAtPosition<T>(double x, double y, string color) where T : Shape, new()
+        {
+            return new T() { X = x, Y = y, Color = color };
+        }
+        public static T ParseAndCreateShape<T>(string x, string y, string color) where T : Shape, new()
+        {
+            return CreateShapeAtPosition<T>(ParseDouble(x), ParseDouble(y), ParseColor(color));
+        }
         public static Shape CreateShape(string description)
         {
             string[] parts = description.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-            string type = parts[0];
-
-            Shape shape;
-            switch (type)
+            switch (parts[0])
             {
-                case "Point":
-                    shape = new Point
-                    {
-                        X = Shape.ParseCoordinate(parts[1]),
-                        Y = Shape.ParseCoordinate(parts[2]),
-                        Color = Shape.ParseColor(parts[3])
-                    };
-                    break;
+                case "Point": return ParseAndCreateShape<Point>(parts[1], parts[2], parts[3]);
                 case "Circle":
-                    shape = new Circle
-                    {
-                        X = Shape.ParseCoordinate(parts[1]),
-                        Y = Shape.ParseCoordinate(parts[2]),
-                        Color = Shape.ParseColor(parts[3]),
-                        Radius = Shape.ParseCoordinate(parts[4])
-                    };
-                    break;
+                    return ParseAndCreateShape<Circle>(parts[1], parts[2], parts[3]).SetRadius(ParseDouble(parts[4]));
                 case "Square":
-                    shape = new Square
-                    {
-                        X = Shape.ParseCoordinate(parts[1]),
-                        Y = Shape.ParseCoordinate(parts[2]),
-                        Color = Shape.ParseColor(parts[3]),
-                        SideLength = Shape.ParseCoordinate(parts[4])
-                    };
-                    break;
-                default:
-                    throw new ArgumentException($"Неизвестный тип объекта: {type}");
+                    return ParseAndCreateShape<Square>(parts[1], parts[2], parts[3]).SetSideLength(ParseDouble(parts[4]));
+                default: throw new ArgumentException($"Неизвестный тип объекта: {parts[0]}");
             }
-
-            return shape;
         }
     }
 }

@@ -9,6 +9,11 @@ namespace Практическая_работа_1_ПИС
     internal class Circle:Shape
     {
         public double Radius { get; set; }
+        public Circle SetRadius(double radius)
+        {
+            Radius = radius;
+            return this;
+        }
 
         public override string ToString()
         {
