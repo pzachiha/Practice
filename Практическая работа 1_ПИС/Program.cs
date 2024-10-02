@@ -16,7 +16,7 @@ namespace Практическая_работа_1_ПИС
     {
         static void Main(string[] args)
         {
-            string tryString = "Point 6,6 7,7 \"green\"";
+            string tryString = "Point 6,6 7,8 \"green\"";
             Console.WriteLine(Shape.CreateShape(tryString));
 
             string filePath = "shapes.txt";
