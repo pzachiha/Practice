@@ -9,10 +9,13 @@ namespace Практическая_работа_1_ПИС
     internal class Square:Shape
     {
         public double SideLength { get; set; }
-        public Square SetSideLength(double sideLength)
+        public override void ReadFromLine(string line)
         {
-            SideLength = sideLength;
-            return this;
+            string[] parts = line.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            X = ParseDouble(parts[1]);
+            Y = ParseDouble(parts[2]);
+            Color = ParseColor(parts[3]);
+            SideLength = ParseDouble(parts[4]);
         }
         public override string ToString()
         {
