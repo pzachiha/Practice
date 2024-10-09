@@ -20,34 +20,10 @@ namespace Практическая_работа_1_ПИС
             Console.WriteLine(Shape.CreateShape(tryString));
 
             string filePath = "shapes.txt";
-            List<Shape> shapes = ReadShapesFromFile(filePath);
+            List<Shape> shapes = ReadFile.ReadShapesFromFile(filePath);
             foreach (var shape in shapes)
             {
                 Console.WriteLine(shape);
-            }
-        }
-
-        static List<Shape> ReadShapesFromFile(string filePath)
-        {
-            List<Shape> shapes = new List<Shape>();
-            try
-            {
-                string[] lines = File.ReadAllLines(filePath);
-                PopulateShapes(shapes, lines);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Ошибка при чтении файла: {ex.Message}");
-            }
-            return shapes;
-        }
-
-        private static void PopulateShapes(List<Shape> shapes, string[] lines)
-        {
-            foreach (string line in lines)
-            {
-                Shape shape = Shape.CreateShape(line);
-                shapes.Add(shape);
             }
         }
     }
