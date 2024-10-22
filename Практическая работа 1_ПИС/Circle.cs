@@ -9,10 +9,13 @@ namespace Практическая_работа_1_ПИС
     internal class Circle:Shape
     {
         public double Radius { get; set; }
-        public Circle SetRadius(double radius)
+        public override void ReadFromLine(string line)
         {
-            Radius = radius;
-            return this;
+            string[] parts = line.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            X = ParseDouble(parts[1]);
+            Y = ParseDouble(parts[2]);
+            Color = ParseColor(parts[3]);
+            Radius = ParseDouble(parts[4]);
         }
 
         public override string ToString()
