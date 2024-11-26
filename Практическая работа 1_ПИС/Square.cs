@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Практическая_работа_1_ПИС
 {
-    internal class Square:Shape
+    public class Square:Shape
     {
         public double SideLength { get; set; }
         public override void ReadFromLine(string line)

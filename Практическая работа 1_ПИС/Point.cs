@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Практическая_работа_1_ПИС
 {
-    internal class Point:Shape
+    public class Point:Shape
     {
         public override string ToString()
         {

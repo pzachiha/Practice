@@ -12,15 +12,11 @@ namespace Практическая_работа_1_ПИС
         public static List<Shape> ReadShapesFromFile(string filePath)
         {
             List<Shape> shapes = new List<Shape>();
-            try
+            ErrorHandler.HandleException(() =>
             {
                 string[] lines = File.ReadAllLines(filePath);
                 PopulateShapes(shapes, lines);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Ошибка при чтении файла: {ex.Message}");
-            }
+            });
             return shapes;
         }
 
@@ -28,8 +24,11 @@ namespace Практическая_работа_1_ПИС
         {
             foreach (string line in lines)
             {
-                Shape shape = Shape.CreateShape(line);
-                shapes.Add(shape);
+                ErrorHandler.HandleException(() =>
+                {
+                    Shape shape = Shape.CreateShape(line);
+                    shapes.Add(shape);
+                });
             }
         }
     }

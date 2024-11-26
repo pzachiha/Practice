@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Практическая_работа_1_ПИС
 {
-    internal class Circle:Shape
+    public class Circle:Shape
     {
         public double Radius { get; set; }
         public override void ReadFromLine(string line)
