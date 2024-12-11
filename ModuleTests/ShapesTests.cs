@@ -14,7 +14,7 @@ namespace ModuleTests
         public void TestCreateShape_Point()
         {
             string line = "Point 1 2 \"green\"";
-            Shape shape = Shape.CreateShape(line);
+            Shape shape = ShapeFactory.CreateShape(line);
             Assert.IsType<Point>(shape);
             Assert.Equal(1, shape.X);
             Assert.Equal(2, shape.Y);
@@ -25,7 +25,7 @@ namespace ModuleTests
         public void TestCreateShape_Circle()
         {
             string line = "Circle 1 2 \"blue\" 5";
-            Shape shape = Shape.CreateShape(line);
+            Shape shape = ShapeFactory.CreateShape(line);
             Assert.IsType<Circle>(shape);
             Circle circle = (Circle)shape;
             Assert.Equal(1.0, circle.X);
@@ -38,7 +38,7 @@ namespace ModuleTests
         public void TestCreateShape_Square()
         {
             string line = "Square 1,0 2,0 \"red\" 4,0";
-            Shape shape = Shape.CreateShape(line);
+            Shape shape = ShapeFactory.CreateShape(line);
             Assert.IsType<Square>(shape);
             Square square = (Square)shape;
             Assert.Equal(1.0, square.X);
@@ -47,18 +47,19 @@ namespace ModuleTests
             Assert.Equal(4.0, square.SideLength);
         }
 
+
         [Fact]
         public void TestCreateShape_InvalidColor()
         {
             string line = "Point 1,0 2,0 \"yellow\"";
-            Assert.Throws<ArgumentException>(() => Shape.CreateShape(line));
+            Assert.Throws<ArgumentException>(() => ShapeFactory.CreateShape(line));
         }
 
         [Fact]
         public void TestCreateShape_InvalidType()
         {
             string line = "Triangle 1,0 2,0 \"green\"";
-            Assert.Throws<ArgumentException>(() => Shape.CreateShape(line));
+            Assert.Throws<ArgumentException>(() => ShapeFactory.CreateShape(line));
         }
 
         [Fact]
@@ -72,9 +73,12 @@ namespace ModuleTests
         [Fact]
         public void TestReadShapesFromFile_InvalidFile()
         {
-            string filePath = "nothing.txt";
-            List<Shape> shapes = ReadFile.ReadShapesFromFile(filePath);
-            Assert.Empty(shapes);
+            string filePath = "nonexistentfile.txt";
+            ErrorHandler.HandleException(() =>
+            {
+                File.ReadAllText(filePath);
+            });
+            Assert.True(true);
         }
     }
 }

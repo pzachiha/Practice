@@ -26,8 +26,8 @@ namespace Практическая_работа_1_ПИС
             {
                 ErrorHandler.HandleException(() =>
                 {
-                    Shape shape = Shape.CreateShape(line);
-                    shapes.Add(shape);
+                Shape shape = ShapeFactory.CreateShape(line);
+                shapes.Add(shape);
                 });
             }
         }

@@ -16,15 +16,20 @@ namespace Практическая_работа_1_ПИС
     {
         static void Main(string[] args)
         {
-            string tryString = "Point 6,6 7,7 \"green\"";
-            Console.WriteLine(Shape.CreateShape(tryString));
-
-            string filePath = "shapes.txt";
-            List<Shape> shapes = ReadFile.ReadShapesFromFile(filePath);
-            foreach (var shape in shapes)
+            ErrorHandler.HandleException(() =>
             {
-                Console.WriteLine(shape);
-            }
+                string tryString = "Point 5,5 7,7 \"yellow\"";
+                Console.WriteLine(ShapeFactory.CreateShape(tryString));
+            });
+            ErrorHandler.HandleException(() =>
+            {
+                string filePath = "shapes.txt";
+                List<Shape> shapes = ReadFile.ReadShapesFromFile(filePath);
+                foreach (var shape in shapes)
+                {
+                    Console.WriteLine(shape);
+                }
+            });
         }
     }
 }

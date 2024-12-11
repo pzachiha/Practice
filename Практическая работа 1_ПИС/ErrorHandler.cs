@@ -15,17 +15,17 @@ namespace Практическая_работа_1_ПИС
             {
                 action();
             }
+            catch (ArgumentException argEx)
+            {
+                Console.WriteLine($"Ошибка аргумента: {argEx.Message}");
+            }
+            catch (FormatException formatEx)
+            {
+                Console.WriteLine($"Ошибка формата данных: {formatEx.Message}");
+            }
             catch (FileNotFoundException fileNotFound)
             {
                 Console.WriteLine($"Файл не найден: {fileNotFound.Message}");
-            }
-            catch (ArgumentException argumentException)
-            {
-                Console.WriteLine($"Неверный аргумент: {argumentException.Message}");
-            }
-            catch (FormatException formatException)
-            {
-                Console.WriteLine($"Ошибка формата данных: {formatException.Message}");
             }
             catch (Exception ex)
             {
