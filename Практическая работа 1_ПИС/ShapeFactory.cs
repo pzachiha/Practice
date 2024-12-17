@@ -24,8 +24,7 @@ namespace Практическая_работа_1_ПИС
                     shape = new Square();
                     break;
                 default:
-                    Console.WriteLine($"Неизвестный тип объекта: {parts[0]}");
-                    return null;
+                    throw new ArgumentException($"Неверный тип: {parts[0]}");
             }
             shape.ReadFromLine(description);
             return shape;
