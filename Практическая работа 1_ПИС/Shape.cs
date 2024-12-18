@@ -27,6 +27,10 @@ namespace Практическая_работа_1_ПИС
         }
         protected static string ParseColor(string color)
         {
+            if (color == null)
+            {
+                throw new ArgumentNullException(nameof(color), "The 'color' parameter cannot be null.");
+            }
             string[] validColors = { "green", "blue", "red" };
             string colorWithoutQuotes = color.Trim('"');
 
@@ -42,6 +46,10 @@ namespace Практическая_работа_1_ПИС
         public virtual void ReadFromLine(string line)
         {
             {
+                //if (line == null)
+                //{
+                //    throw new ArgumentNullException(nameof(line), "The 'line' parameter cannot be null.");
+                //}
                 string[] parts = line.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
                 X = ParseDouble(parts[1]);
                 Y = ParseDouble(parts[2]);

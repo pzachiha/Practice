@@ -11,6 +11,10 @@ namespace Практическая_работа_1_ПИС
         public double SideLength { get; set; }
         public override void ReadFromLine(string line)
         {
+            if (line == null)
+            {
+                throw new ArgumentNullException(nameof(line), "Параметр 'line' не может быть null");
+            }
             string[] parts = line.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
             X = ParseDouble(parts[1]);
             Y = ParseDouble(parts[2]);

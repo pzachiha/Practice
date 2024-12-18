@@ -30,6 +30,11 @@ namespace Практическая_работа_1_ПИС
                     Console.WriteLine(shape);
                 }
             });
+            Circle circle = new Circle();
+            ErrorHandler.HandleException(() =>
+            {
+                circle.ReadFromLine(null);
+            });
         }
     }
 }

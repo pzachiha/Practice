@@ -11,6 +11,10 @@ namespace Практическая_работа_1_ПИС
     {
         public static void HandleException(Action action)
         {
+            if (action == null)
+            {
+                throw new ArgumentNullException(nameof(action), "The 'action' parameter cannot be null.");
+            }
             try
             {
                 action();

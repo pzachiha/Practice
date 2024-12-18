@@ -80,5 +80,42 @@ namespace ModuleTests
             });
             Assert.True(true);
         }
+        [Fact]
+        public void HandleException_ArgumentException_ShouldLogError()
+        {
+            string expectedMessage = "Ошибка аргумента: Test ArgumentException";
+            var consoleOutput = new StringWriter();
+            Console.SetOut(consoleOutput);
+            ErrorHandler.HandleException(() =>
+            {
+                throw new ArgumentException("Test ArgumentException");
+            });
+            Assert.Contains(expectedMessage, consoleOutput.ToString());
+        }
+        [Fact]
+        public void TestHandleException_GenericException()
+        {
+            string expectedMessage = "Произошла ошибка: Test Generic Exception";
+            var consoleOutput = new StringWriter();
+            Console.SetOut(consoleOutput);
+            ErrorHandler.HandleException(() =>
+            {
+                throw new Exception("Test Generic Exception");
+            });
+            Assert.Contains(expectedMessage, consoleOutput.ToString());
+        }
+        [Fact]
+        public void ToString_ShouldReturnCorrectString()
+        {
+            var point = new Point
+            {
+                X = 10,
+                Y = 20,
+                Color = "red"
+            };
+            string expectedString = "Point: X: 10, Y: 20, Color: red";
+            string result = point.ToString();
+            Assert.Equal(expectedString, result);
+        }
     }
 }
